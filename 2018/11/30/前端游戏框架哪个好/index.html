@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="当今国内外流行的游戏开发框架有哪些开发动画和游戏，跟我们做数据交互不一样；游戏和动画开发起来比较复杂和耗时，是比较依赖框架和工具的。那么现在都有那些框架和工具呢？下面我们就来看一下。    Name 2D 3D     Three.js no yes   Phaser yes no   Createjs yes no   Egret yes yes   Cocos2d-js yes no    每">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端游戏框架哪个好">
+<meta property="og:url" content="http://yoursite.com/2018/11/30/前端游戏框架哪个好/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="当今国内外流行的游戏开发框架有哪些开发动画和游戏，跟我们做数据交互不一样；游戏和动画开发起来比较复杂和耗时，是比较依赖框架和工具的。那么现在都有那些框架和工具呢？下面我们就来看一下。    Name 2D 3D     Three.js no yes   Phaser yes no   Createjs yes no   Egret yes yes   Cocos2d-js yes no    每">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-11-30T09:29:09.175Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端游戏框架哪个好">
+<meta name="twitter:description" content="当今国内外流行的游戏开发框架有哪些开发动画和游戏，跟我们做数据交互不一样；游戏和动画开发起来比较复杂和耗时，是比较依赖框架和工具的。那么现在都有那些框架和工具呢？下面我们就来看一下。    Name 2D 3D     Three.js no yes   Phaser yes no   Createjs yes no   Egret yes yes   Cocos2d-js yes no    每">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/30/前端游戏框架哪个好/">
+
+
+
+
+
+  <title>前端游戏框架哪个好 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/30/前端游戏框架哪个好/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">前端游戏框架哪个好</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-30T16:46:27+08:00">
+                2018-11-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="当今国内外流行的游戏开发框架有哪些"><a href="#当今国内外流行的游戏开发框架有哪些" class="headerlink" title="当今国内外流行的游戏开发框架有哪些"></a>当今国内外流行的游戏开发框架有哪些</h3><p>开发动画和游戏，跟我们做数据交互不一样；游戏和动画开发起来比较复杂和耗时，是比较依赖框架和工具的。那么现在都有那些框架和工具呢？下面我们就来看一下。</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>2D</th>
+<th>3D</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Three.js</td>
+<td>no</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>Phaser</td>
+<td>yes</td>
+<td>no</td>
+</tr>
+<tr>
+<td>Createjs</td>
+<td>yes</td>
+<td>no</td>
+</tr>
+<tr>
+<td>Egret</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>Cocos2d-js</td>
+<td>yes</td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+<h3 id="每个框架的特点以及优缺点"><a href="#每个框架的特点以及优缺点" class="headerlink" title="每个框架的特点以及优缺点"></a>每个框架的特点以及优缺点</h3><p>上面表格的框架，是我总结出来，比较多同行关注并且学习使用的框架。</p>
+<h4 id="Three-js"><a href="#Three-js" class="headerlink" title="Three.js"></a>Three.js</h4><p>一款历史比较悠久的开源项目，准确地说它不是一个游戏引擎，是一个JavaScript的3D库。然而我们可以用它来做各种的3D效果和游戏。  </p>
+<ul>
+<li>优点：  </li>
+</ul>
+<ol>
+<li><p>专注于三维效果的JavaScript实现，能够在网页端实现大部分三维效果  </p>
+</li>
+<li><p>文档齐全，并具有搜索功能，方便快速查阅  </p>
+</li>
+<li><p>国外项目，目前仍然持续更新，不需要担心没人维护国外  </p>
+</li>
+<li><p>纯js代码开发，引入库即可用，不需要借助其他工具，方面接入任何的系统  </p>
+</li>
+</ol>
+<ul>
+<li>缺点：  </li>
+</ul>
+<ol>
+<li>文档大部分是英文，需要具备一定英文水平才能读懂  </li>
+<li><p>学习难度比较大，除了js代码基础，还需要具备高中的几何知识、webgl知识、线性代数等等  </p>
+</li>
+<li><p>国内例子相对比较少，中文教程也不多，基本上都是看官网的例子和文档进行学习和研究  </p>
+</li>
+<li><p>网页3d效果的兼容性和性能问题，需要详细研究需求后才能使用  </p>
+</li>
+</ol>
+<h4 id="Phaser"><a href="#Phaser" class="headerlink" title="Phaser"></a>Phaser</h4><p>免费开源的html5游戏框架，支持canvas和webgl渲染，github上2w+ star，比较不错的游戏框架。</p>
+<ul>
+<li>优点：  </li>
+</ul>
+<ol>
+<li><p>专注于2d游戏的JavaScript实现，集合了渲染、物理引擎，能够完成大部分小游戏  </p>
+</li>
+<li><p>使用方法简单，容易上手  </p>
+</li>
+<li><p>官方网站上有大量例子，代码都不负责，基本需要使用的效果都能找到对应的例子  </p>
+</li>
+<li><p>纯js代码开发，引入库即可用，不需要借助其他工具，方面接入任何的系统  </p>
+</li>
+<li><p>能够在微信小游戏中使用，并支持typescript</p>
+</li>
+</ol>
+<ul>
+<li>缺点：  </li>
+</ul>
+<ol>
+<li><p>官方文档大部分是英文，并且没有搜索功能，需要按照类一层层往下搜索；假如在官方例子中找不到合适的代码，需要花时间研究文档  </p>
+</li>
+<li><p>目前稳定版本是2.10，但是版本是社区维护；官方在开发新的3.0版本，暂时还在调整阶段    </p>
+</li>
+<li><p>由于纯代码编写，如果游戏逻辑复杂，代码会比较多和繁琐，需要在前期做比较好的规划  </p>
+</li>
+</ol>
+<h4 id="Createjs"><a href="#Createjs" class="headerlink" title="Createjs"></a>Createjs</h4><p>免费开源的html5游戏、动画和交互应用框架，adobe animate软件基于该库来生成代码。</p>
+<ul>
+<li>优点：  </li>
+</ul>
+<ol>
+<li><p>动画和交互效果小能手，众多好看和高质量的h5展示效果使用createjs制作  </p>
+</li>
+<li><p>可以使用纯代码开发，或者使用adobe animate软件开发  </p>
+</li>
+<li><p>国内教程比较丰富，学习成本不大  </p>
+</li>
+<li><p>核心库分为四个，分别支持渲染、动画、预加载和音频，可以按需求加载对于库  </p>
+</li>
+</ol>
+<ul>
+<li>缺点：  </li>
+</ul>
+<ol>
+<li><p>例子相对较少，遇到新或者复杂的需求，基本需要查看api，无法寻找相似例子  </p>
+</li>
+<li><p>没有封装好粒子系统、骨骼动画、瓦片地图等等，轻量级的库，不适合大型游戏    </p>
+</li>
+<li><p>动画制作一般需要大量图片，涉及图片压缩和使用精灵图方面的技术  </p>
+</li>
+</ol>
+<h4 id="Egret"><a href="#Egret" class="headerlink" title="Egret"></a>Egret</h4><p>国内优秀的游戏制作引擎，具备一整套的开发工具和教程。</p>
+<ul>
+<li>优点：  </li>
+</ul>
+<ol>
+<li><p>大型游戏制作能手，能够使用图形化工具制作游戏，性能优越  </p>
+</li>
+<li><p>使用typescript开发业务逻辑，代码规范  </p>
+</li>
+<li><p>中文文档和教程，学习方便  </p>
+</li>
+<li><p>同时支持3d和2d，并且带有各种模块，游戏制作基本属于全能</p>
+</li>
+<li><p>支持接入微信小游戏  </p>
+</li>
+</ol>
+<ul>
+<li>缺点：  </li>
+</ul>
+<ol>
+<li><p>需要使用工具开发，不方便接入其他业务系统  </p>
+</li>
+<li><p>虽然具备中文文档，当时需要熟悉各种工具，学习成本不低    </p>
+</li>
+<li><p>例子相对较少，制作大型游戏需要大量填坑  </p>
+</li>
+</ol>
+<h4 id="Cocos2d-js"><a href="#Cocos2d-js" class="headerlink" title="Cocos2d-js"></a>Cocos2d-js</h4><p>历史比较悠久的游戏开发框架，类似egret。</p>
+<ul>
+<li>优点：  </li>
+</ul>
+<ol>
+<li><p>2D优秀开发引擎，同样使用图形化工具制作游戏，操作方便 </p>
+</li>
+<li><p>核心使用JavaScript编写  </p>
+</li>
+<li><p>中文文档和教程，学习方便，并且资料和例子丰富  </p>
+</li>
+<li><p>功能相当完整，游戏中需要的功能几乎都能够找到</p>
+</li>
+<li><p>支持接入微信小游戏  </p>
+</li>
+</ol>
+<ul>
+<li>缺点：  </li>
+</ul>
+<ol>
+<li><p>需要使用工具开发，不方便接入其他业务系统  </p>
+</li>
+<li><p>需要熟悉各种工具，学习成本不低，这点类似egret    </p>
+</li>
+<li><p>擅长2D游戏开发，3D游戏开发没有其它几个游戏框架专业  </p>
+</li>
+</ol>
+<h3 id="怎样去选择一个适合的框架来学习和使用"><a href="#怎样去选择一个适合的框架来学习和使用" class="headerlink" title="怎样去选择一个适合的框架来学习和使用"></a>怎样去选择一个适合的框架来学习和使用</h3><p><strong>学习：</strong><br>从学习上来说，我推荐初学者挑选纯代码进行开发的框架（three.js、createjs和phaser）进行学习。学习这类型的框架，虽然难度比较大，花时间比较长；但是能够提高自己的代码编写水平，还能更加深刻地理解游戏开发。  </p>
+<p>如果有些小伙伴比较喜欢图形化界面操作，也可以尝试egret和coco2d。这两个框架都是国内比较流行的游戏框架，学习哪一个都会有所帮助。  </p>
+<p>如果有小伙伴之前是做flash的，我推荐使用adobe animate软件。这款软件其实就是以前的flash加上了html5的canvas，它既可以生成flash，也可以制作网页动画；制作的方法也以前的flash软件基本一样，只是多了JavaScript代码编写。</p>
+<p><strong>工作：</strong><br>在工作中，特别是一些中小型公司，选择游戏框架就跟学习的时候不一样了。<br>首先需要明确需要制作什么类型的游戏，是否需要接入自己公司的业务系统。  </p>
+<ul>
+<li><p>如果是一些小游戏，类似跳一跳、推箱子等等，可以使用纯代码开发的框架。这样无论后面需求是否修改，是否需要接入业务系统，都能够方便进行修改。  </p>
+</li>
+<li><p>如果游戏的形式不太清晰，但是需要接入自己业务系统，例如游戏过后要抽奖、要统计数据等等；也建议优先选择纯代码开发的框架，毕竟纯代码开发的框架，就算前后端没有完全分离，也可以在页面上面放php或者java代码。  </p>
+</li>
+<li><p>如果需要制作比较复杂的游戏，图形化的开发工具是第一选择。图形化界面能够大大提升游戏开发的效率，而且游戏的结构也是清晰可见，性价比比较高。  </p>
+</li>
+<li><p>如果游戏需求比较复杂，而且需要接入自己的业务系统。这种情况，需要先测试图形化工具缩生成的代码是否能够顺利接入系统，然后再选择使用。</p>
+</li>
+</ul>
+<h3 id="使用框架的注意事项"><a href="#使用框架的注意事项" class="headerlink" title="使用框架的注意事项"></a>使用框架的注意事项</h3><p>最后，给小伙伴们几个使用框架的建议，下面的都是我经过无数次踩坑总结出来的。</p>
+<ol>
+<li>学习使用过程，遇到英文资料或者文档，建议不要使用翻译软件，通过例子和上下文去理解。</li>
+<li>注意游戏的图片和模型加载，合理使用精灵图和框架的预加载功能。</li>
+<li>开始开发之前，注意测试需要用到的框架属性，是否存在兼容性问题，特别是安卓和苹果手机的区别。</li>
+<li>多复习一下高中的立体几何、解析几何，大学的线性代数、算法和图形图像。</li>
+<li>跟美工打好关系，做游戏时，图片和模型的调整会非常多，没有他们的配合，很难进行。</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/30/CreateJS 制作 H5 长图动画/" rel="prev" title="CreateJS 制作 H5 长图动画">
+                CreateJS 制作 H5 长图动画 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#当今国内外流行的游戏开发框架有哪些"><span class="nav-number">1.</span> <span class="nav-text">当今国内外流行的游戏开发框架有哪些</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#每个框架的特点以及优缺点"><span class="nav-number">2.</span> <span class="nav-text">每个框架的特点以及优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Three-js"><span class="nav-number">2.1.</span> <span class="nav-text">Three.js</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Phaser"><span class="nav-number">2.2.</span> <span class="nav-text">Phaser</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Createjs"><span class="nav-number">2.3.</span> <span class="nav-text">Createjs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Egret"><span class="nav-number">2.4.</span> <span class="nav-text">Egret</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Cocos2d-js"><span class="nav-number">2.5.</span> <span class="nav-text">Cocos2d-js</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#怎样去选择一个适合的框架来学习和使用"><span class="nav-number">3.</span> <span class="nav-text">怎样去选择一个适合的框架来学习和使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用框架的注意事项"><span class="nav-number">4.</span> <span class="nav-text">使用框架的注意事项</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

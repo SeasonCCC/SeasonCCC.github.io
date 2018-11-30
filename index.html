@@ -229,7 +229,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/30/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/30/AJAX，模拟请求数据/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -248,7 +248,390 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/30/hello-world/" itemprop="url">Hello World134567489</a></h1>
+                <a class="post-title-link" href="/2018/11/30/AJAX，模拟请求数据/" itemprop="url">Mockjs + Vue 拦截 AJAX，模拟请求数据</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-30T17:29:22+08:00">
+                2018-11-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>日常工作中，前端通过ajax调用后端的接口是非常常见的事情。然而很多情况下，调用接口也会出现很多不方便或者麻烦的情况。</p>
+<p>例如：现在有一个抽奖的项目，分为1，2，3等。后台同事写好接口之后，我们前端通过调用抽奖接口，根据不同的奖品等级出现不同的奖品细节。在这种情况下，我们调用接口会出现一个情况，就是调用10次，可能连一次1等奖都没有，因为1等奖中奖率很低。这个时候，为了能测试1等奖，我们就要想个办法来模拟数据了。</p>
+<p>Mock.js是一个能够生成随机数据，拦截Ajax请求，实现前后端分离 让前端攻城师独立于后端进行开发的库。本场chat我就来介绍一下，这个库的一些用法。</p>
+<ul>
+<li>Mockjs 应用场景介绍</li>
+<li>Mockjs 简单使用和配置</li>
+<li>Mockjs 搭配 Vue 使用</li>
+<li>Mockjs 注意事项</li>
+</ul>
+<h3 id="应用场景介绍"><a href="#应用场景介绍" class="headerlink" title="应用场景介绍"></a>应用场景介绍</h3><p>1.项目流程比较复杂，而后台同事已经完全写好程序之后，可以使用mockjs来模拟数据进行开发测试</p>
+<p>2.需要制作案例库或者作品展示之类的项目，需要把原有项目进行处理，去除所有的http请求</p>
+<p>3.项目已经上线，但是临时要修改，不想影响线上页面和数据的时候，可以使用mockjs协助</p>
+<p>4.后台同事接口还没写完，而前端想调用接口，可以mockjs模拟数据</p>
+<p>5.进行单元测试的时候，可以用mockjs随机数据，模拟各种场景</p>
+<h3 id="简单使用和配置"><a href="#简单使用和配置" class="headerlink" title="简单使用和配置"></a>简单使用和配置</h3><p>Mockjs的使用方法并不难，首先安装mockjs（<a href="https://github.com/nuysoft/Mock/wiki/Getting-Started" target="_blank" rel="noopener">支持各种方式安装</a>）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install mockjs</span><br><span class="line">bower install --save mockjs</span><br><span class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;./bower_components/mockjs/dist/mock.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>最简单的用法，随机一组数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import Mock from &apos;mockjs&apos;</span><br><span class="line"></span><br><span class="line">var data = Mock.mock(&#123;</span><br><span class="line">    // 属性 list 的值是一个数组，其中含有 1 到 10 个元素</span><br><span class="line">    &apos;list|1-10&apos;: [&#123;</span><br><span class="line">        // 属性 id 是一个自增数，起始值为 1，每次增 1</span><br><span class="line">        &apos;id|+1&apos;: 1</span><br><span class="line">    &#125;]</span><br><span class="line">&#125;)</span><br><span class="line">console.log(JSON.stringify(data, null, 4))</span><br></pre></td></tr></table></figure></p>
+<p>MockJs通过在对象属性后面，添加 ‘|XX’的方式，来进行数据的随机生成。也可以使用mock.random方法进行生成数据。在日常开发中，我们常用的数据大概有如下几类：integer、string、date、time、image、color、text、url、name。Mockjs都有对应的方法来生成这些类型的模拟数据。</p>
+<p>一般常用的随机方法有下面几个</p>
+<ul>
+<li>随机多个重复数据</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Mock.mock(&#123;</span><br><span class="line">  &quot;string|1-10&quot;: &quot;★&quot;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">★</span><br></pre></td></tr></table></figure>
+<ul>
+<li>随机数字</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Mock.mock(&#123;</span><br><span class="line">  &quot;number|1-100&quot;: 100</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">89</span><br></pre></td></tr></table></figure>
+<ul>
+<li>随机bool</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Mock.mock(&#123;</span><br><span class="line">  &quot;boolean|1-2&quot;: true</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">false</span><br></pre></td></tr></table></figure>
+<ul>
+<li>随机数组</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Mock.mock(&#123;</span><br><span class="line">  &quot;array|1-10&quot;: [</span><br><span class="line">    &quot;Mock.js&quot;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;array&quot;: [</span><br><span class="line">    &quot;Mock.js&quot;,</span><br><span class="line">    &quot;Mock.js&quot;,</span><br><span class="line">    &quot;Mock.js&quot;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>随机正则</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Mock.mock(&#123;</span><br><span class="line">  &apos;regexp&apos;: /[a-z][A-Z][0-9]/</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;regexp&quot;: &quot;rJ7&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>随机日期</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Mock.mock(&apos;@date&apos;)</span><br><span class="line"></span><br><span class="line">&quot;1980-01-05&quot;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>随机字符串</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Mock.mock(&apos;@word&apos;)</span><br><span class="line"></span><br><span class="line">&quot;fbzgdlg&quot;</span><br></pre></td></tr></table></figure>
+<p>Mockjs还有很多随机的方法可以选择，基本上测试上已经够用的了，我在这里就列出了一些我常用的方法，如果还需要更加高级的可以查看mockjs的<a href="http://mockjs.com/examples.html" target="_blank" rel="noopener">文档</a>。</p>
+<h4 id="拦截http请求"><a href="#拦截http请求" class="headerlink" title="拦截http请求"></a><strong>拦截http请求</strong></h4><p>Mockjs一个很好用的功能，就是可以拦截ajax，正因为有了这个方法，使得mockjs能够用来为一些中小型项目提供简单的测试环境。先举一个简单的例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Mock.mock(&apos;http://test.com&apos;,&#123;</span><br><span class="line">    &apos;name|3&apos;:&apos;fei&apos;,</span><br><span class="line">    &apos;age|20-30&apos;:25,</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">$.ajax(&#123;</span><br><span class="line">    url:&apos;http://estcom&apos;,</span><br><span class="line">    dataType:&apos;json&apos;,</span><br><span class="line">    success:function(e)&#123;</span><br><span class="line">       console.log(e)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>执行之后，会发现netword中没有请求，而ajax会返回我们设定的数据。</p>
+<p>Mock方法还有几个参数：Mock.mock( rurl?, rtype?, template|function( options ) )。</p>
+<ul>
+<li>rurl表示需要拦截的 URL，可以是 URL 字符串或 URL 正则。</li>
+<li>rtype表示需要拦截的 Ajax 请求类型。例如 GET、POST、PUT、DELETE 等。</li>
+<li>template表示数据模板，可以是对象或字符串。例如 { ‘data|1-10’:[{}] }、‘@EMAIL’。</li>
+<li>function(options)表示用于生成响应数据的函数。</li>
+</ul>
+<p>一般使用rurl和template就已经足够模拟接口了，用于测试的请求不需要非常完整，只需要模拟一到两种返回数据类型就可以了。</p>
+<h3 id="搭配vue使用"><a href="#搭配vue使用" class="headerlink" title="搭配vue使用"></a>搭配vue使用</h3><p>现在很多国内项目都是使用Vue进行构建，Mockjs和Vue是可以完美结合的。（建议写一个utils.js文件，专门处理Mockjs的逻辑）</p>
+<p>main.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &apos;Vue&apos;</span><br><span class="line">import Router from &apos;VueRouter&apos;</span><br><span class="line">import utils from &apos;../utils/utils&apos;</span><br><span class="line"></span><br><span class="line">const router = new VueRouter(&#123;routes&#125;)</span><br><span class="line"></span><br><span class="line">const getQueryString = (name) =&gt; &#123;</span><br><span class="line">  var reg = new RegExp(&apos;(^|&amp;)&apos; + name + &apos;=([^&amp;]*)(&amp;|$)&apos;);</span><br><span class="line">  var r = window.location.search.substr(1).match(reg);</span><br><span class="line">  if (r != null)</span><br><span class="line">    return unescape(r[2]);</span><br><span class="line">  return null;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if (getQueryString(&apos;static&apos;) === &apos;true&apos;) &#123;</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Vue.use(Router)</span><br><span class="line"></span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: &apos;#app&apos;,</span><br><span class="line">  router,</span><br><span class="line">  template: &apos;&lt;App/&gt;&apos;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    App</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>utils.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import Mock from &apos;Mock&apos;</span><br><span class="line"></span><br><span class="line">const utils = &#123;</span><br><span class="line">  cj(options) &#123;</span><br><span class="line">    Mock.mock(options.cj, &#123;</span><br><span class="line">      &apos;statusCode&apos;: &apos;200&apos;,</span><br><span class="line">      &apos;data&apos;: &#123;</span><br><span class="line">        &apos;id|1-100000&apos;: 1,</span><br><span class="line">        &apos;name&apos;: &apos;1元红包&apos;,</span><br><span class="line">        &apos;type&apos;: &apos;hb:100&apos;,</span><br><span class="line">        &apos;level&apos;: &apos;五等奖&apos;,</span><br><span class="line">        &apos;sno&apos;: &apos;pd4mjq&apos;</span><br><span class="line">      &#125;,</span><br><span class="line">      &apos;msg&apos;: &apos;恭喜你，中奖了！&apos;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default utils</span><br></pre></td></tr></table></figure>
+<p>有一点需要注意的是，Mockjs需要在new vue()之前执行，不然vue已经初始化了。配置好了之后，在项目中可以对接口不做任何调整，我的方法是用链接带参数static=true的方式，生成两个链接，一个正式链接，一个测试链接；然后只需要多写mock的配置，就可以实现正式链接请求后台数据，而测试链接不发送任何请求但项目依然可以完美运行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">let postData = this.$qs.stringify(&#123;</span><br><span class="line">  answer_id: this.$route.params.answerId,</span><br><span class="line">  vdata: vdata</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">this.$http.request(&#123;</span><br><span class="line">  method: &apos;post&apos;,</span><br><span class="line">  url: this.$projectOptions.cj,</span><br><span class="line">  data: postData</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>正式链接：<a href="http://www.test.com" target="_blank" rel="noopener">http://www.test.com</a></p>
+<p>测试链接：<a href="http://www.test.com&amp;static=true" target="_blank" rel="noopener">http://www.test.com&amp;static=true</a></p>
+<h3 id="Mockjs-注意事项"><a href="#Mockjs-注意事项" class="headerlink" title="Mockjs 注意事项"></a>Mockjs 注意事项</h3><ol>
+<li>最好通过链接带参数，或者一些标记的方式来调用mockjs，这样在不需要做太多调整，就能弄出测试和正式环境。</li>
+<li>由于Mockjs修改了XHR对象，对于一些通过XHR获取资源（例如createjs用preloadjs加载图片）的库需要注意设置成不使用XHR方式加载。</li>
+<li>Mockjs虽然很好用，但是在大项目中，其实并不合适，最正规的测试应该是搭建测试服务器进行测试。只是在一些中小型公司，没有这样的资源，可以使用这一个折中的办法。</li>
+<li>Mockjs的模拟数据虽然已经很全面，但是随着需求的变更，肯定会有无法模拟的时候，这个时候可以使用其他随机数据的库，配合mock使用</li>
+<li>Mockjs已经有一段时间没有更新了，不过很多测试框架像Jest都提供mock方法，如果在时间充裕并需要正规地进行项目测试，建议使用专业的测试框架进行单元测试</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/30/CreateJS 制作 H5 长图动画/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/30/CreateJS 制作 H5 长图动画/" itemprop="url">CreateJS 制作 H5 长图动画</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-30T17:27:43+08:00">
+                2018-11-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>现在移动端高端大气的动画h5非常多，去各大素材网站，或者关注一些大型的公众号，不时就会推出一些新颖的形式。这些移动端的h5除了设计非常地漂亮以外，动画效果也特别棒。我们作为前端程序猿是很有必要去学习怎么样去制作这类型的动画效果。</p>
+<p>首先要声明一点的是，前端制作稍微复杂的动画和游戏，一般不会使用dom来写的。主要原因有两个</p>
+<ul>
+<li>dom制作动画性能不高</li>
+<li>dom写复杂动画比较吃力</li>
+</ul>
+<p>一般这种动画和游戏，我们会使用canvas来制作，这里介绍一下用createjs这一个动画库来制作一个简单的长图动画，完成的效果：<br><a href="https://www.foshannews.com/zt/2018/wx/jdtp/zc1/#/" target="_blank" rel="noopener">https://www.foshannews.com/zt/2018/wx/jdtp/zc1/#/</a></p>
+<ul>
+<li><a href="#搭建加载场景">搭建加载场景</a></li>
+<li><a href="#搭建长图场景">搭建长图场景</a></li>
+<li><a href="#制作长按效果">制作长按效果</a></li>
+<li><a href="#添加元素以及元素动画">添加元素以及元素动画</a></li>
+</ul>
+<h2 id="Createjs搭建加载场景"><a href="#Createjs搭建加载场景" class="headerlink" title="Createjs搭建加载场景"></a>Createjs搭建加载场景</h2><p><span id="搭建加载场景"></span><br>在搭建场景之前，很重要的一步就是要加载资源，createjs有一个专门用于加载资源的库preloadjs。使用这个库可以在场景渲染之前，先加载需要的资源，实现预加载；再配合上一些加载的动画，用户体验会非常好。</p>
+<p>首先把图片引用import进来，然后新建一个createjs.LoadQueue，调用on和loadManifest两个方法。在complete里面写上加载完成后需要执行的逻辑即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import XXX from &apos;../assets/loading-pointer.png&apos;</span><br><span class="line"></span><br><span class="line">let queue = new createjs.LoadQueue(false)</span><br><span class="line">queue.on(&apos;complete&apos;, () =&gt; &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;, this)</span><br><span class="line"></span><br><span class="line">queue.loadManifest([</span><br><span class="line">  &#123;</span><br><span class="line">    id: &apos;loadingPointer&apos;,</span><br><span class="line">    src: loadingPointer</span><br><span class="line">  &#125;, &#123;</span><br><span class="line">    id: &apos;loadingProgress&apos;,</span><br><span class="line">    src: loadingProgress</span><br><span class="line">  &#125;</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+<p><strong>这里要注意的是，loadManifest这个方法需要在complete后；原因跟canvas的img.onload和img.src一样，为了在浏览器有缓存的情况下，不会出现img.src方法已经调用完成，而onload方法还没有绑定。</strong></p>
+<hr>
+<h4 id="制作加载场景"><a href="#制作加载场景" class="headerlink" title="制作加载场景"></a>制作加载场景</h4><p>有了加载资源这个方法之后，我们制作场景的思路是：<br>出现加载场景-&gt;加载资源-&gt;完成一个资源的加载-&gt;加载场景进度条往前移动</p>
+<p>先创建一个container，相当于一个div，来包裹里面的元素，方便后面操作里面的元素</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let stage = new createjs.Stage(options.stage)</span><br><span class="line">let container = new createjs.Container()</span><br></pre></td></tr></table></figure>
+<p>接下来，通过Shape的graphics方法，绘制一个背景</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let bg = new createjs.Shape()</span><br><span class="line">bg.graphics.beginFill(&apos;#b7d45d&apos;).rect(0, 0, this.options.width, this.options.height)</span><br><span class="line">container.addChild(bg)</span><br></pre></td></tr></table></figure>
+<p>有了背景之后，可以开始往上加各种的元素了，先把文字内容加上，定位的话，文字放在在页面中间，可以定义一个中点的mx和my，后面很多地方会用到<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let progressWord = new createjs.Text(&apos;政策说明书打开中……&apos;, &apos;30px Microsoft Yahei&apos;, &apos;#637d12&apos;)</span><br><span class="line">progressWord.textAlign = &apos;center&apos;</span><br><span class="line">progressWord.textBaseline = &apos;bottom&apos;</span><br><span class="line">progressWord.x = mx</span><br><span class="line">progressWord.y = my * 1.03</span><br><span class="line">container.addChild(progressWord)</span><br></pre></td></tr></table></figure></p>
+<p>加了加载页面的文字之后，就到添加页面的进度条了；由于进度条是图片，所以在添加图片要先用一个预加载，预加载过后，把图片添加到container上面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">let queue = new createjs.LoadQueue(false)</span><br><span class="line">queue.on(&apos;complete&apos;, () =&gt; &#123;</span><br><span class="line">  const loadingProgressImg = queue.getResult(&apos;loadingProgress&apos;)</span><br><span class="line">  const loadingProgressBitmap = new createjs.Bitmap(loadingProgressImg)</span><br><span class="line">  const bounds = loadingProgressBitmap.getBounds()</span><br><span class="line">  loadingProgressBitmap.setTransform(mx - bounds.width * 0.4, my * 0.8, 0.8, 0.8)</span><br><span class="line">  container.addChild(loadingProgressBitmap)</span><br><span class="line"></span><br><span class="line">  // loading pointer</span><br><span class="line">  const loadingPointerImg = queue.getResult(&apos;loadingPointer&apos;)</span><br><span class="line">  const loadingPointerBitmap = new createjs.Bitmap(loadingPointerImg)</span><br><span class="line">  loadingPointerBitmap.setTransform(mx - bounds.width * 0.4, my * 0.8, 0.8, 0.8)</span><br><span class="line">  container.addChild(loadingPointerBitmap)</span><br><span class="line">  callback.call(this, &#123;</span><br><span class="line">    loadingPointer: loadingPointerBitmap,</span><br><span class="line">    progressWidth: bounds.width * 0.8,</span><br><span class="line">    container: container</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;, this)</span><br><span class="line"></span><br><span class="line">queue.loadManifest([</span><br><span class="line">  &#123;</span><br><span class="line">    id: &apos;loadingPointer&apos;,</span><br><span class="line">    src: loadingPointer</span><br><span class="line">  &#125;, &#123;</span><br><span class="line">    id: &apos;loadingProgress&apos;,</span><br><span class="line">    src: loadingProgress</span><br><span class="line">  &#125;</span><br><span class="line">])</span><br></pre></td></tr></table></figure></p>
+<p>最后把container添加到stage中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stage.addChild(container)</span><br></pre></td></tr></table></figure>
+<p>加载场景的效果：</p>
+<p><img src="https://images.gitbook.cn/4ec42530-d1ea-11e8-b949-eb29383f10ad" alt="enter image description here"></p>
+<hr>
+<h4 id="加载场景添加动画"><a href="#加载场景添加动画" class="headerlink" title="加载场景添加动画"></a>加载场景添加动画</h4><p>为加载场景添加动画，需要用到两个preloadjs的方法，progress能够获取加载的进度，complete能够在加载完成之后给与回调方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">this.queue = new createjs.LoadQueue()</span><br><span class="line">this.queue.on(&apos;progress&apos;, progressHandel, this)</span><br><span class="line">this.queue.on(&apos;complete&apos;, handleComplete, this)</span><br></pre></td></tr></table></figure>
+<p>首先调用progress方法，每加载完成一个资源，通过progress的event参数，调整一遍pointer图片的x坐标，这样就完成了进度条的移动效果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">this.queue.on(&apos;progress&apos;, (event) =&gt; &#123;</span><br><span class="line">    obj.loadingPointer.x = obj.progressWidth * event.progress + beginX</span><br><span class="line">&#125;, this)</span><br></pre></td></tr></table></figure>
+<p>完成之后，调用complete方法，切换场景；这里使用了tweenjs的方法，将当前的container不透明度在0.5秒里面变成0，看起来就是一个渐变效果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">this.queue.on(&apos;complete&apos;, (event) =&gt; &#123;</span><br><span class="line">    createjs.Tween.get(obj.container).to(&#123;</span><br><span class="line">      alpha: 0</span><br><span class="line">    &#125;, 500).call(() =&gt; &#123;</span><br><span class="line">      this.stage.removeChild(obj.container)</span><br><span class="line">      render.renderStage.call(this)</span><br><span class="line">      render.renderElement.call(this)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;, this)</span><br></pre></td></tr></table></figure>
+<h2 id="Createjs搭建长图场景"><a href="#Createjs搭建长图场景" class="headerlink" title="Createjs搭建长图场景"></a>Createjs搭建长图场景</h2><p><span id="搭建长图场景"></span></p>
+<p>有了搭建加载场景的经验之后，搭建长图的场景就变得非常容易了。同样先新建一个container，然后加载背景图片，调整大小和位置（这里的背景图的y坐标，需要根据实际情况来修改）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">this.container = new createjs.Container()</span><br><span class="line">// render background</span><br><span class="line">const background = this.queue.getResult(&apos;bg&apos;)</span><br><span class="line">const backgroundImg = new createjs.Bitmap(background)</span><br><span class="line"></span><br><span class="line">this.rate = this.options.width / 750</span><br><span class="line">const stageY = -10726 + this.options.height / this.rate</span><br><span class="line">backgroundImg.setTransform(0, stageY)</span><br><span class="line">this.container.addChild(backgroundImg)</span><br></pre></td></tr></table></figure>
+<p><strong>注意：无论用什么游戏或者动画框架，只要是用canvas作为底层技术的，必须从底层往上层添加元素，不然上层的元素会被下层覆盖</strong></p>
+<h2 id="Createjs制作长按效果"><a href="#Createjs制作长按效果" class="headerlink" title="Createjs制作长按效果"></a>Createjs制作长按效果</h2><p><span id="制作长按效果"></span></p>
+<p>有了背景图之后，先不着急往上面添加元素，因为长图很长，需要先把滚动或者长按效果做出来，方便后面开发</p>
+<p>我这里是长按效果，所以需要一个按钮</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const press = this.queue.getResult(&apos;press&apos;)</span><br><span class="line">const pressImg = new createjs.Bitmap(press)</span><br><span class="line">pressImg.setTransform(this.options.width * 0.72, this.options.height * 0.5)</span><br><span class="line">this.stage.addChild(pressImg)</span><br><span class="line">events.pressEvent.call(this, pressImg, this.container)</span><br></pre></td></tr></table></figure>
+<p>按钮里面绑定长按事件，这里使用createjs图片元素的mousedown和pressup方法，设置beginMove为true和false</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">obj.on(&apos;mousedown&apos;, (e) =&gt; &#123;</span><br><span class="line">  if (this.stage.getChildAt(2)) &#123;</span><br><span class="line">    this.stage.removeChild(this.stage.getChildAt(2))</span><br><span class="line">  &#125;</span><br><span class="line">  this.beginMove = true</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">obj.on(&apos;pressup&apos;, (e) =&gt; &#123;</span><br><span class="line">  this.beginMove = false</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>设置完之后，其实只是改变一个状态，页面还没有可以动起来，createjs有一个很重要的东西，叫做ticker。可以理解为我们玩游戏时候的fps，每隔一定时间，重新绘制一偏页面</p>
+<p>通过调用createjs.Ticker.on(‘tick’, () =&gt; {})， 当beginMove为true的时候，每次ticker重新绘制页面，将container的y坐标就+5，这样就实现了页面长按滚动<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">createjs.Ticker.on(&apos;tick&apos;, () =&gt; &#123;</span><br><span class="line">  if (this.beginMove &amp;&amp; this.container) &#123;</span><br><span class="line">    // move up</span><br><span class="line">    let heightLimit = this.rate * 10726 - this.options.height</span><br><span class="line">    if (this.container.y &lt; heightLimit &amp;&amp; this.container.y + 5 &lt; heightLimit) &#123;</span><br><span class="line">      this.container.y += 5</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      this.container.y = heightLimit</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h2 id="Createjs添加元素以及元素动画"><a href="#Createjs添加元素以及元素动画" class="headerlink" title="Createjs添加元素以及元素动画"></a>Createjs添加元素以及元素动画</h2><p><span id="添加元素以及元素动画"></span></p>
+<p>有了长按效果之后，页面就可以动了，这个时候就可以把其他元素加入到场景中</p>
+<p>这里介绍一个重要的概念：精灵图。<br><img src="https://images.gitbook.cn/e33e11a0-d2a6-11e8-b28b-41c1c8a6fe34" alt="enter image description here"></p>
+<p>如上图，这种把一张张图片整合在按照一定规律整合在一起的图片，就是精灵图。使用这种图片的好处是加载资源只需要请求一次，其余操作都是用css或者js来对图片进行分割，减少请求次数</p>
+<p>而作为游戏和动画领域，这种图片会被经常用到，createjs通过SpriteSheet来处理精灵图；通过定义blubData对象，定义精灵图的宽高以及帧数，就可以把一张精灵图变成动画了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// render blub</span><br><span class="line">const blub = this.queue.getResult(&apos;bulb&apos;)</span><br><span class="line">const blubData = &#123;</span><br><span class="line">  images: [blub],</span><br><span class="line">  frames: &#123;width: 212 / 2, height: 124, count: 2&#125;,</span><br><span class="line">  animations: &#123;</span><br><span class="line">    light: &#123;</span><br><span class="line">      frames: [0, 1],</span><br><span class="line">      speed: 0.05</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">const blubSpriteSheet = new createjs.SpriteSheet(blubData)</span><br></pre></td></tr></table></figure>
+<p>新建好了之后，在需要播放的地方使用gotoAndPlay(‘light’)方法播放精灵图动画</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.blub1Sprite.gotoAndPlay(&apos;light&apos;)</span><br></pre></td></tr></table></figure>
+<p>除此之外，对于不是精灵图的图片，可以使用上面用到的加载图片方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const policy = this.queue.getResult(&apos;policy&apos;)</span><br><span class="line">this.policyImg = new createjs.Bitmap(policy)</span><br><span class="line">this.policyImg.setTransform(700, -1338 + stageY)</span><br><span class="line">this.container.addChild(this.policyImg)</span><br></pre></td></tr></table></figure>
+<p>然后使用tweenjs来使图片动起来</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">createjs.Tween.get(this.policyImg).to(&#123;</span><br><span class="line">  x: 750 - this.policyImg.getBounds().width</span><br><span class="line">&#125;, 1000)</span><br></pre></td></tr></table></figure>
+<p>到这里，基本的技术点都已经介绍完了，剩下的就是去加入各种的图片和精灵图这种重复工作</p>
+<p><strong>*<em>注意：可能有的小伙伴看到这里会问，为什么我上面写的代码，都有一些-1338 + stageY或者</em>this.rate这种代码。这个其实跟我的需求有关，也是做游戏和动画必须要做的一些兼容性调整。*</strong></p>
+<p>最后，给几个createjs的性能优化建议</p>
+<ul>
+<li>图片尽量使用精灵图，并进行压缩</li>
+<li>尽量不要用滤镜和叠加效果，如果要用，直接做进图片里面</li>
+<li>减少容器之间的嵌套</li>
+<li>不用的侦听就取消掉，特别是tick</li>
+<li>所有基于canvas的引擎都一样，尽量少用旋转，缩放，alpha的操控</li>
+<li>尽量重用一些元素</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/30/前端游戏框架哪个好/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/30/前端游戏框架哪个好/" itemprop="url">前端游戏框架哪个好</a></h1>
         
 
         <div class="post-meta">
@@ -300,15 +683,198 @@
       
         
           
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+            <h3 id="当今国内外流行的游戏开发框架有哪些"><a href="#当今国内外流行的游戏开发框架有哪些" class="headerlink" title="当今国内外流行的游戏开发框架有哪些"></a>当今国内外流行的游戏开发框架有哪些</h3><p>开发动画和游戏，跟我们做数据交互不一样；游戏和动画开发起来比较复杂和耗时，是比较依赖框架和工具的。那么现在都有那些框架和工具呢？下面我们就来看一下。</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>2D</th>
+<th>3D</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Three.js</td>
+<td>no</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>Phaser</td>
+<td>yes</td>
+<td>no</td>
+</tr>
+<tr>
+<td>Createjs</td>
+<td>yes</td>
+<td>no</td>
+</tr>
+<tr>
+<td>Egret</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>Cocos2d-js</td>
+<td>yes</td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+<h3 id="每个框架的特点以及优缺点"><a href="#每个框架的特点以及优缺点" class="headerlink" title="每个框架的特点以及优缺点"></a>每个框架的特点以及优缺点</h3><p>上面表格的框架，是我总结出来，比较多同行关注并且学习使用的框架。</p>
+<h4 id="Three-js"><a href="#Three-js" class="headerlink" title="Three.js"></a>Three.js</h4><p>一款历史比较悠久的开源项目，准确地说它不是一个游戏引擎，是一个JavaScript的3D库。然而我们可以用它来做各种的3D效果和游戏。  </p>
+<ul>
+<li>优点：  </li>
+</ul>
+<ol>
+<li><p>专注于三维效果的JavaScript实现，能够在网页端实现大部分三维效果  </p>
+</li>
+<li><p>文档齐全，并具有搜索功能，方便快速查阅  </p>
+</li>
+<li><p>国外项目，目前仍然持续更新，不需要担心没人维护国外  </p>
+</li>
+<li><p>纯js代码开发，引入库即可用，不需要借助其他工具，方面接入任何的系统  </p>
+</li>
+</ol>
+<ul>
+<li>缺点：  </li>
+</ul>
+<ol>
+<li>文档大部分是英文，需要具备一定英文水平才能读懂  </li>
+<li><p>学习难度比较大，除了js代码基础，还需要具备高中的几何知识、webgl知识、线性代数等等  </p>
+</li>
+<li><p>国内例子相对比较少，中文教程也不多，基本上都是看官网的例子和文档进行学习和研究  </p>
+</li>
+<li><p>网页3d效果的兼容性和性能问题，需要详细研究需求后才能使用  </p>
+</li>
+</ol>
+<h4 id="Phaser"><a href="#Phaser" class="headerlink" title="Phaser"></a>Phaser</h4><p>免费开源的html5游戏框架，支持canvas和webgl渲染，github上2w+ star，比较不错的游戏框架。</p>
+<ul>
+<li>优点：  </li>
+</ul>
+<ol>
+<li><p>专注于2d游戏的JavaScript实现，集合了渲染、物理引擎，能够完成大部分小游戏  </p>
+</li>
+<li><p>使用方法简单，容易上手  </p>
+</li>
+<li><p>官方网站上有大量例子，代码都不负责，基本需要使用的效果都能找到对应的例子  </p>
+</li>
+<li><p>纯js代码开发，引入库即可用，不需要借助其他工具，方面接入任何的系统  </p>
+</li>
+<li><p>能够在微信小游戏中使用，并支持typescript</p>
+</li>
+</ol>
+<ul>
+<li>缺点：  </li>
+</ul>
+<ol>
+<li><p>官方文档大部分是英文，并且没有搜索功能，需要按照类一层层往下搜索；假如在官方例子中找不到合适的代码，需要花时间研究文档  </p>
+</li>
+<li><p>目前稳定版本是2.10，但是版本是社区维护；官方在开发新的3.0版本，暂时还在调整阶段    </p>
+</li>
+<li><p>由于纯代码编写，如果游戏逻辑复杂，代码会比较多和繁琐，需要在前期做比较好的规划  </p>
+</li>
+</ol>
+<h4 id="Createjs"><a href="#Createjs" class="headerlink" title="Createjs"></a>Createjs</h4><p>免费开源的html5游戏、动画和交互应用框架，adobe animate软件基于该库来生成代码。</p>
+<ul>
+<li>优点：  </li>
+</ul>
+<ol>
+<li><p>动画和交互效果小能手，众多好看和高质量的h5展示效果使用createjs制作  </p>
+</li>
+<li><p>可以使用纯代码开发，或者使用adobe animate软件开发  </p>
+</li>
+<li><p>国内教程比较丰富，学习成本不大  </p>
+</li>
+<li><p>核心库分为四个，分别支持渲染、动画、预加载和音频，可以按需求加载对于库  </p>
+</li>
+</ol>
+<ul>
+<li>缺点：  </li>
+</ul>
+<ol>
+<li><p>例子相对较少，遇到新或者复杂的需求，基本需要查看api，无法寻找相似例子  </p>
+</li>
+<li><p>没有封装好粒子系统、骨骼动画、瓦片地图等等，轻量级的库，不适合大型游戏    </p>
+</li>
+<li><p>动画制作一般需要大量图片，涉及图片压缩和使用精灵图方面的技术  </p>
+</li>
+</ol>
+<h4 id="Egret"><a href="#Egret" class="headerlink" title="Egret"></a>Egret</h4><p>国内优秀的游戏制作引擎，具备一整套的开发工具和教程。</p>
+<ul>
+<li>优点：  </li>
+</ul>
+<ol>
+<li><p>大型游戏制作能手，能够使用图形化工具制作游戏，性能优越  </p>
+</li>
+<li><p>使用typescript开发业务逻辑，代码规范  </p>
+</li>
+<li><p>中文文档和教程，学习方便  </p>
+</li>
+<li><p>同时支持3d和2d，并且带有各种模块，游戏制作基本属于全能</p>
+</li>
+<li><p>支持接入微信小游戏  </p>
+</li>
+</ol>
+<ul>
+<li>缺点：  </li>
+</ul>
+<ol>
+<li><p>需要使用工具开发，不方便接入其他业务系统  </p>
+</li>
+<li><p>虽然具备中文文档，当时需要熟悉各种工具，学习成本不低    </p>
+</li>
+<li><p>例子相对较少，制作大型游戏需要大量填坑  </p>
+</li>
+</ol>
+<h4 id="Cocos2d-js"><a href="#Cocos2d-js" class="headerlink" title="Cocos2d-js"></a>Cocos2d-js</h4><p>历史比较悠久的游戏开发框架，类似egret。</p>
+<ul>
+<li>优点：  </li>
+</ul>
+<ol>
+<li><p>2D优秀开发引擎，同样使用图形化工具制作游戏，操作方便 </p>
+</li>
+<li><p>核心使用JavaScript编写  </p>
+</li>
+<li><p>中文文档和教程，学习方便，并且资料和例子丰富  </p>
+</li>
+<li><p>功能相当完整，游戏中需要的功能几乎都能够找到</p>
+</li>
+<li><p>支持接入微信小游戏  </p>
+</li>
+</ol>
+<ul>
+<li>缺点：  </li>
+</ul>
+<ol>
+<li><p>需要使用工具开发，不方便接入其他业务系统  </p>
+</li>
+<li><p>需要熟悉各种工具，学习成本不低，这点类似egret    </p>
+</li>
+<li><p>擅长2D游戏开发，3D游戏开发没有其它几个游戏框架专业  </p>
+</li>
+</ol>
+<h3 id="怎样去选择一个适合的框架来学习和使用"><a href="#怎样去选择一个适合的框架来学习和使用" class="headerlink" title="怎样去选择一个适合的框架来学习和使用"></a>怎样去选择一个适合的框架来学习和使用</h3><p><strong>学习：</strong><br>从学习上来说，我推荐初学者挑选纯代码进行开发的框架（three.js、createjs和phaser）进行学习。学习这类型的框架，虽然难度比较大，花时间比较长；但是能够提高自己的代码编写水平，还能更加深刻地理解游戏开发。  </p>
+<p>如果有些小伙伴比较喜欢图形化界面操作，也可以尝试egret和coco2d。这两个框架都是国内比较流行的游戏框架，学习哪一个都会有所帮助。  </p>
+<p>如果有小伙伴之前是做flash的，我推荐使用adobe animate软件。这款软件其实就是以前的flash加上了html5的canvas，它既可以生成flash，也可以制作网页动画；制作的方法也以前的flash软件基本一样，只是多了JavaScript代码编写。</p>
+<p><strong>工作：</strong><br>在工作中，特别是一些中小型公司，选择游戏框架就跟学习的时候不一样了。<br>首先需要明确需要制作什么类型的游戏，是否需要接入自己公司的业务系统。  </p>
+<ul>
+<li><p>如果是一些小游戏，类似跳一跳、推箱子等等，可以使用纯代码开发的框架。这样无论后面需求是否修改，是否需要接入业务系统，都能够方便进行修改。  </p>
+</li>
+<li><p>如果游戏的形式不太清晰，但是需要接入自己业务系统，例如游戏过后要抽奖、要统计数据等等；也建议优先选择纯代码开发的框架，毕竟纯代码开发的框架，就算前后端没有完全分离，也可以在页面上面放php或者java代码。  </p>
+</li>
+<li><p>如果需要制作比较复杂的游戏，图形化的开发工具是第一选择。图形化界面能够大大提升游戏开发的效率，而且游戏的结构也是清晰可见，性价比比较高。  </p>
+</li>
+<li><p>如果游戏需求比较复杂，而且需要接入自己的业务系统。这种情况，需要先测试图形化工具缩生成的代码是否能够顺利接入系统，然后再选择使用。</p>
+</li>
+</ul>
+<h3 id="使用框架的注意事项"><a href="#使用框架的注意事项" class="headerlink" title="使用框架的注意事项"></a>使用框架的注意事项</h3><p>最后，给小伙伴们几个使用框架的建议，下面的都是我经过无数次踩坑总结出来的。</p>
+<ol>
+<li>学习使用过程，遇到英文资料或者文档，建议不要使用翻译软件，通过例子和上下文去理解。</li>
+<li>注意游戏的图片和模型加载，合理使用精灵图和框架的预加载功能。</li>
+<li>开始开发之前，注意测试需要用到的框架属性，是否存在兼容性问题，特别是安卓和苹果手机的区别。</li>
+<li>多复习一下高中的立体几何、解析几何，大学的线性代数、算法和图形图像。</li>
+<li>跟美工打好关系，做游戏时，图片和模型的调整会非常多，没有他们的配合，很难进行。</li>
+</ol>
 
           
         
@@ -390,7 +956,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -398,6 +964,15 @@
 
             
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
             
 
           </nav>
