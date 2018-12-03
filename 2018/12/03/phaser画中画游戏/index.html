@@ -2,18 +2,23 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>Season Blog</title>
+<title>Phaser画中画游戏 - Season Blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Season Blog">
-<meta property="og:url" content="https://seasonccc.github.io/index.html">
+    <meta name="description" content="这篇文章主要记录，Phaser画中画游戏的制作流程以及制作难点，主要涉及以下几点：  Phaser横屏适配 搭建图片 制作长按效果 制作结束页面">
+<meta name="keywords" content="Canvas">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Phaser画中画游戏">
+<meta property="og:url" content="https://seasonccc.github.io/2018/12/03/phaser画中画游戏/index.html">
 <meta property="og:site_name" content="Season Blog">
+<meta property="og:description" content="这篇文章主要记录，Phaser画中画游戏的制作流程以及制作难点，主要涉及以下几点：  Phaser横屏适配 搭建图片 制作长按效果 制作结束页面">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-03T07:50:17.968Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Season Blog">
+<meta name="twitter:title" content="Phaser画中画游戏">
+<meta name="twitter:description" content="这篇文章主要记录，Phaser画中画游戏的制作流程以及制作难点，主要涉及以下几点：  Phaser横屏适配 搭建图片 制作长按效果 制作结束页面">
 
 
 
@@ -79,7 +84,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="https://avatars0.githubusercontent.com/u/9429680?s=460&v=4" alt="Season Blog" height="28">
+                <img src="https://avatars0.githubusercontent.com/u/9429680?s=460&v=4" alt="Phaser画中画游戏" height="28">
             
             </a>
         </div>
@@ -87,7 +92,7 @@
             
             <div class="navbar-start">
                 
-                <a class="navbar-item is-active" href="/">Home</a>
+                <a class="navbar-item" href="/">Home</a>
                 
                 <a class="navbar-item" href="/archives">Archives</a>
                 
@@ -122,8 +127,7 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
-    <div class="card">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
     
     <div class="card-content article ">
         
@@ -143,7 +147,7 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2018/12/03/phaser画中画游戏/">Phaser画中画游戏</a>
+                Phaser画中画游戏
             
         </h1>
         <div class="content">
@@ -154,156 +158,55 @@
 <li><a href="#制作长按效果">制作长按效果</a></li>
 <li><a href="#制作结束页面">制作结束页面</a></li>
 </ul>
+<a id="more"></a>
+<h2 id="Phaser横屏适配"><a href="#Phaser横屏适配" class="headerlink" title="Phaser横屏适配"></a>Phaser横屏适配</h2><p><span id="Phaser横屏适配"></span><br>Phaser横屏适配沿用<a href="https://www.phaser-china.com/tutorial-detail-16.html" target="_blank" rel="noopener">Phaser小站的横屏适配方案</a><br><strong>注意：一般在preload的时候，就设置横屏了</strong></p>
+<p>项目开头，先加入这一段代码；作用是在横屏的时候，让游戏旋转90度<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Phaser.World.prototype.displayObjectUpdateTransform = function () &#123;</span><br><span class="line">  if (!this.game.scale.correct) &#123;</span><br><span class="line">    this.x = this.game.camera.y + this.game.width</span><br><span class="line">    this.y = -this.game.camera.x</span><br><span class="line">    this.rotation = Phaser.Math.degToRad(Phaser.Math.wrapAngle(90))</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    this.x = -this.game.camera.x</span><br><span class="line">    this.y = -this.game.camera.y</span><br><span class="line">    this.rotation = 0</span><br><span class="line">  &#125;</span><br><span class="line">  PIXI.DisplayObject.prototype.updateTransform.call(this)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>定义一个judgeOrient()方法，在游戏开始的时候和手机方向旋转的时候调用<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">judgeOrient () &#123;</span><br><span class="line">  if (this.game.scale.isLandscape) &#123;</span><br><span class="line">    this.game.scale.correct = true</span><br><span class="line">    this.game.scale.setGameSize(</span><br><span class="line">      this.game.optionsWidth,</span><br><span class="line">      this.game.optionsHeight</span><br><span class="line">    )</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    this.game.scale.correct = false</span><br><span class="line">    this.game.scale.setGameSize(</span><br><span class="line">      this.game.optionsHeight,</span><br><span class="line">      this.game.optionsWidth</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="搭建图片"><a href="#搭建图片" class="headerlink" title="搭建图片"></a>搭建图片</h2><p><span id="搭建图片"></span></p>
+<p>搭建图片之前，需要用ps测量几个尺寸：</p>
+<ul>
+<li>每一张图片与下一张图片衔接区域的大小</li>
+<li>衔接区域的坐标</li>
+</ul>
+<p>测量好之后，就可以开始计算几个值：</p>
+<ul>
+<li>rate 图片缩放的大小</li>
+<li>anchorX和anchorY 缩放中心的坐标</li>
+<li>areaX和areaY 缩放区域的坐标</li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rate: 1920 / 178 / 2, </span><br><span class="line">anchorX: 724 + (178 * 724) / (724 + 1018),</span><br><span class="line">anchorY: 494 + (102 * 494) / (494 + 484),</span><br><span class="line">areaX: 724,</span><br><span class="line">areaY: 494</span><br></pre></td></tr></table></figure>
+<p>**这里的游戏逻辑是，把图片从最后一张开始添加（因为后面添加的会叠在上面）。每次添加都需要把图片放大指定的尺寸，使得图片一开始可以跟前面一张图片重合。</p>
+
         </div>
         
-        
-        <div class="level is-mobile">
+        <div class="level is-size-7 is-uppercase">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2018/12/03/phaser画中画游戏/#more">Read More</a>
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Canvas/">Canvas</a>
                 </div>
             </div>
         </div>
+        
         
         
     </div>
 </div>
 
 
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
         
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2018-11-30T09:29:22.000Z">2018-11-30</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    12 minutes read (About 1760 words)
-                </span>
-                
-            </div>
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2018/11/30/AJAX，模拟请求数据/">
+                <span class="level-item">Mockjs + Vue 拦截 AJAX，模拟请求数据</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
         </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2018/11/30/AJAX，模拟请求数据/">Mockjs + Vue 拦截 AJAX，模拟请求数据</a>
-            
-        </h1>
-        <div class="content">
-            <p>日常工作中，前端通过ajax调用后端的接口是非常常见的事情。然而很多情况下，调用接口也会出现很多不方便或者麻烦的情况。</p>
-<p>例如：现在有一个抽奖的项目，分为1，2，3等。后台同事写好接口之后，我们前端通过调用抽奖接口，根据不同的奖品等级出现不同的奖品细节。在这种情况下，我们调用接口会出现一个情况，就是调用10次，可能连一次1等奖都没有，因为1等奖中奖率很低。这个时候，为了能测试1等奖，我们就要想个办法来模拟数据了。<br></p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2018/11/30/AJAX，模拟请求数据/#more">Read More</a>
-                </div>
-            </div>
-        </div>
-        
         
     </div>
 </div>
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2018-11-30T09:27:43.000Z">2018-11-30</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    15 minutes read (About 2271 words)
-                </span>
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2018/11/30/CreateJS 制作 H5 长图动画/">CreateJS 制作 H5 长图动画</a>
-            
-        </h1>
-        <div class="content">
-            <p>现在移动端高端大气的动画h5非常多，去各大素材网站，或者关注一些大型的公众号，不时就会推出一些新颖的形式。这些移动端的h5除了设计非常地漂亮以外，动画效果也特别棒。我们作为前端程序猿是很有必要去学习怎么样去制作这类型的动画效果。<br></p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2018/11/30/CreateJS 制作 H5 长图动画/#more">Read More</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2018-11-30T08:46:27.836Z">2018-11-30</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    15 minutes read (About 2227 words)
-                </span>
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2018/11/30/前端游戏框架哪个好/">前端游戏框架哪个好</a>
-            
-        </h1>
-        <div class="content">
-            <h3 id="当今国内外流行的游戏开发框架有哪些"><a href="#当今国内外流行的游戏开发框架有哪些" class="headerlink" title="当今国内外流行的游戏开发框架有哪些"></a>当今国内外流行的游戏开发框架有哪些</h3><p>开发动画和游戏，跟我们做数据交互不一样；游戏和动画开发起来比较复杂和耗时，是比较依赖框架和工具的。那么现在都有那些框架和工具呢？下面我们就来看一下。</p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2018/11/30/前端游戏框架哪个好/#more">Read More</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
 
 
 </div>
@@ -803,7 +706,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="https://avatars0.githubusercontent.com/u/9429680?s=460&v=4" alt="Season Blog" height="28">
+                    <img src="https://avatars0.githubusercontent.com/u/9429680?s=460&v=4" alt="Phaser画中画游戏" height="28">
                 
                 </a>
                 <p class="is-size-7">
