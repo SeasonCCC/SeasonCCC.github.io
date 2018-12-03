@@ -88,9 +88,9 @@ sidebar:
 widgets:
   - type: profile
     position: left
-    author: Your name
-    author_title: Your title
-    location: Your location
+    author: Season
+    # author_title: Your title
+    location: China
     avatar: https://avatars0.githubusercontent.com/u/9429680?s=460&v=4
     gravatar:
     follow_link: "http://github.com/seasonccc"
