@@ -98,15 +98,15 @@ widgets:
       Github:
         icon: fab fa-github
         url: "http://github.com/seasonccc"
-      Facebook:
-        icon: fab fa-facebook
-        url: "http://facebook.com"
-      Twitter:
-        icon: fab fa-twitter
-        url: "http://twitter.com"
-      Dribbble:
-        icon: fab fa-dribbble
-        url: "http://dribbble.com"
+    #   Facebook:
+    #     icon: fab fa-facebook
+    #     url: "http://facebook.com"
+    #   Twitter:
+    #     icon: fab fa-twitter
+    #     url: "http://twitter.com"
+    #   Dribbble:
+    #     icon: fab fa-dribbble
+    #     url: "http://dribbble.com"
       RSS:
         icon: fas fa-rss
         url: /
@@ -116,7 +116,7 @@ widgets:
     position: left
     links:
       Hexo: "https://hexo.io"
-      PPOffice: "https://github.com/ppoffice"
+      PPOffice: "https://github.com/seasonccc"
   - type: category
     position: left
   - type: tagcloud
