@@ -370,20 +370,22 @@
 
 <div class="card">
     <div class="card-content">
-        <h3 class="title is-5 has-text-weight-normal">Comentarios</h3>
+        <h3 class="title is-5 has-text-weight-normal">Comments</h3>
         
-<div id="valine-thread"></div>
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
-    new Valine({
-        el: '#valine-thread' ,
-        notify: false,
-        verify: false,
-        app_id: 'FlmO9tk995h4nmojfXGO2ELP-gzGzoHsz',
-        app_key: '1A7DnySkQOQyi769DhrVk5Gf',
-        placeholder: 'just go go'
-    });
+	var gitment = new Gitment({
+		id: '2018/11/30/前端游戏框架哪个好/',
+		owner: 'SeasonCCC',
+		repo: 'https://github.com/SeasonCCC/seasonccc.github.io.git',
+		oauth: {
+			client_id: '579d202769ad39c06bd7',
+			client_secret: 'f4b37902ec5f3531a6b03ba527cfa05849cb8fd2',
+		},
+	})
+	gitment.render('comment-container')
 </script>
 
     </div>
@@ -422,7 +424,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Entradas
+                        Posts
                     </p>
                     <p class="title has-text-weight-normal">
                         4
@@ -432,7 +434,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Categorias
+                        Categories
                     </p>
                     <p class="title has-text-weight-normal">
                         0
@@ -442,7 +444,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Etiquetas
+                        Tags
                     </p>
                     <p class="title has-text-weight-normal">
                         2
@@ -452,7 +454,7 @@
         </nav>
         <div class="level">
             <a class="level-item button is-link is-rounded" href="http://github.com/seasonccc">
-                SEGUIR</a>
+                Follow</a>
         </div>
         
         
@@ -521,7 +523,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Categorias
+                Categories
             </h3>
             <ul class="menu-list">
             
@@ -534,7 +536,7 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Nube de etiquetas
+            Tag Cloud
         </h3>
         <a href="/tags/Canvas/" style="font-size: 20px;">Canvas</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a>
     </div>
@@ -548,7 +550,7 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Recientes
+            Recent
         </h3>
         
         <article class="media">
@@ -635,7 +637,7 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Archivos
+            Archives
         </h3>
         <ul class="menu-list">
         
@@ -670,7 +672,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Etiquetas
+                Tags
             </h3>
             <ul class="menu-list">
                 
@@ -716,7 +718,7 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Recientes
+            Recent
         </h3>
         
         <article class="media">
@@ -803,7 +805,7 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Archivos
+            Archives
         </h3>
         <ul class="menu-list">
         
@@ -838,7 +840,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Etiquetas
+                Tags
             </h3>
             <ul class="menu-list">
                 
@@ -988,10 +990,10 @@ document.addEventListener('DOMContentLoaded', function () {
     (function (window) {
         var INSIGHT_CONFIG = {
             TRANSLATION: {
-                POSTS: 'Entradas',
+                POSTS: 'Posts',
                 PAGES: 'Pages',
-                CATEGORIES: 'Categorias',
-                TAGS: 'Etiquetas',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
                 UNTITLED: '(Untitled)',
             },
             CONTENT_URL: '/content.json',
