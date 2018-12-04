@@ -367,6 +367,29 @@
 </div>
 
 
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">コメント</h3>
+        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+	var gitment = new Gitment({
+		id: '2018/11/30/前端游戏框架哪个好/',
+		owner: 'SeasonCCC',
+		repo: 'seasonccc.github.io',
+		oauth: {
+			client_id: '81513a4f2d6d2c278060',
+			client_secret: 'e9eca71b42d6241ff1c89bccb1189e6be21ca978',
+		},
+	})
+	gitment.render('comment-container')
+</script>
+
+    </div>
+</div>
 </div>
                 
 
@@ -401,7 +424,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Posts
+                        投稿
                     </p>
                     <p class="title has-text-weight-normal">
                         4
@@ -411,7 +434,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Categories
+                        カテゴリ
                     </p>
                     <p class="title has-text-weight-normal">
                         0
@@ -421,7 +444,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Tags
+                        タグ
                     </p>
                     <p class="title has-text-weight-normal">
                         2
@@ -431,7 +454,7 @@
         </nav>
         <div class="level">
             <a class="level-item button is-link is-rounded" href="http://github.com/seasonccc">
-                Follow</a>
+                フォローする</a>
         </div>
         
         
@@ -462,7 +485,7 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Links
+            リンク
         </h3>
         <ul class="menu-list">
         
@@ -500,7 +523,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Categories
+                カテゴリ
             </h3>
             <ul class="menu-list">
             
@@ -513,7 +536,7 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Tag Cloud
+            タグクラウド
         </h3>
         <a href="/tags/Canvas/" style="font-size: 20px;">Canvas</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a>
     </div>
@@ -527,7 +550,7 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Recent
+            最近の記事
         </h3>
         
         <article class="media">
@@ -614,7 +637,7 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Archives
+            アーカイブ
         </h3>
         <ul class="menu-list">
         
@@ -649,7 +672,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Tags
+                タグ
             </h3>
             <ul class="menu-list">
                 
@@ -695,7 +718,7 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Recent
+            最近の記事
         </h3>
         
         <article class="media">
@@ -782,7 +805,7 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Archives
+            アーカイブ
         </h3>
         <ul class="menu-list">
         
@@ -817,7 +840,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Tags
+                タグ
             </h3>
             <ul class="menu-list">
                 
@@ -967,10 +990,10 @@ document.addEventListener('DOMContentLoaded', function () {
     (function (window) {
         var INSIGHT_CONFIG = {
             TRANSLATION: {
-                POSTS: 'Posts',
+                POSTS: '投稿',
                 PAGES: 'Pages',
-                CATEGORIES: 'Categories',
-                TAGS: 'Tags',
+                CATEGORIES: 'カテゴリ',
+                TAGS: 'タグ',
                 UNTITLED: '(Untitled)',
             },
             CONTENT_URL: '/content.json',
