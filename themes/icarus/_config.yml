@@ -64,13 +64,11 @@ search:
 # http://ppoffice.github.io/hexo-theme-icarus/categories/Configuration/Comment-Plugins
 comment:
   # Name of the comment plugin
-  type: valine
-  app_id: "FlmO9tk995h4nmojfXGO2ELP-gzGzoHsz"        # (required) LeanCloud application id
-  app_key: "1A7DnySkQOQyi769DhrVk5Gf"       # (required) LeanCloud application key
-  notify: false           # (optional) receive email notification
-  verify: false           # (optional) show verification code
-  placeholder: "just go go"   # (optional) comment box placeholder text
-
+  type: gitment
+  owner: "SeasonCCC"         # (required) GitHub user name
+  repo: "seasonccc.github.io"          # (required) GitHub repository name
+  client_id: "579d202769ad39c06bd7"     # (required) OAuth application client id
+  client_secret: "f4b37902ec5f3531a6b03ba527cfa05849cb8fd2" # (required) OAuth application client secret
 # Share plugin settings
 # http://ppoffice.github.io/hexo-theme-icarus/categories/Configuration/Share-Plugins
 share:
