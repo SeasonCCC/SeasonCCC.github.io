@@ -64,11 +64,11 @@ search:
 # http://ppoffice.github.io/hexo-theme-icarus/categories/Configuration/Comment-Plugins
 comment:
   # Name of the comment plugin
-  type: gitment
-  owner: "SeasonCCC"         # (required) GitHub user name
-  repo: "seasonccc.github.io"          # (required) GitHub repository name
-  client_id: "579d202769ad39c06bd7"     # (required) OAuth application client id
-  client_secret: "f4b37902ec5f3531a6b03ba527cfa05849cb8fd2" # (required) OAuth application client secret
+  # type: gitment
+  # owner: "SeasonCCC"         # (required) GitHub user name
+  # repo: "seasonccc.github.io"          # (required) GitHub repository name
+  # client_id: "579d202769ad39c06bd7"     # (required) OAuth application client id
+  # client_secret: "f4b37902ec5f3531a6b03ba527cfa05849cb8fd2" # (required) OAuth application client secret
 # Share plugin settings
 # http://ppoffice.github.io/hexo-theme-icarus/categories/Configuration/Share-Plugins
 share:
