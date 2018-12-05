@@ -4,7 +4,7 @@ date: 2018-12-03 15:27:43
 tags: Canvas
 ---
 
-这篇文章主要记录，Phaser画中画游戏的制作流程以及制作难点，主要涉及以下几点：
+这篇文章主要记录，Phaser画中画游戏的制作流程以及制作难点，主要涉及以下几点：[项目效果](http://www.foshannews.net/zt/2018/wx/fsfb6/#/)
 
 - [Phaser横屏适配](#Phaser横屏适配)
 - [搭建图片](#搭建图片)
@@ -166,4 +166,10 @@ if (
   nowPage.anchor.set(nextPage.anchor.x, nextPage.anchor.y)
   nextPage.visible = true
 }
+```
+## 结束页面
+<span id="结束页面"></span>
+结束页面难度不大，不过要注意的是分享的弹窗需要最后再添加，不然会被前面的页面挡住；还有就是结束层是一个group，点击动作需要使用onChildInputDown的方法
+```
+this.shareGroup.onChildInputDown.add(this.closeShare, this)
 ```
