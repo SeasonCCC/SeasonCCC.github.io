@@ -7,18 +7,20 @@
 
 
 
-    <meta name="description" content="这篇文章主要记录，Phaser画中画游戏的制作流程以及制作难点，主要涉及以下几点：  Phaser横屏适配 搭建图片 制作长按效果 制作结束页面">
+    <meta name="description" content="这篇文章主要记录，Phaser画中画游戏的制作流程以及制作难点，主要涉及以下几点：  Phaser横屏适配 搭建图片 长按效果 结束页面">
 <meta name="keywords" content="Canvas">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Phaser画中画游戏">
 <meta property="og:url" content="https://seasonccc.github.io/2018/12/03/phaser画中画游戏/index.html">
 <meta property="og:site_name" content="Season Blog">
-<meta property="og:description" content="这篇文章主要记录，Phaser画中画游戏的制作流程以及制作难点，主要涉及以下几点：  Phaser横屏适配 搭建图片 制作长按效果 制作结束页面">
+<meta property="og:description" content="这篇文章主要记录，Phaser画中画游戏的制作流程以及制作难点，主要涉及以下几点：  Phaser横屏适配 搭建图片 长按效果 结束页面">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-03T07:50:17.968Z">
+<meta property="og:image" content="https://seasonccc.github.io/2018/12/03/phaser画中画游戏/1.jpg">
+<meta property="og:updated_time" content="2018-12-05T03:45:52.113Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Phaser画中画游戏">
-<meta name="twitter:description" content="这篇文章主要记录，Phaser画中画游戏的制作流程以及制作难点，主要涉及以下几点：  Phaser横屏适配 搭建图片 制作长按效果 制作结束页面">
+<meta name="twitter:description" content="这篇文章主要记录，Phaser画中画游戏的制作流程以及制作难点，主要涉及以下几点：  Phaser横屏适配 搭建图片 长按效果 结束页面">
+<meta name="twitter:image" content="https://seasonccc.github.io/2018/12/03/phaser画中画游戏/1.jpg">
 
 
 
@@ -139,7 +141,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    3 minutes read (About 445 words)
+                    8 minutes read (About 1172 words)
                 </span>
                 
             </div>
@@ -155,8 +157,8 @@
 <ul>
 <li><a href="#Phaser横屏适配">Phaser横屏适配</a></li>
 <li><a href="#搭建图片">搭建图片</a></li>
-<li><a href="#制作长按效果">制作长按效果</a></li>
-<li><a href="#制作结束页面">制作结束页面</a></li>
+<li><a href="#长按效果">长按效果</a></li>
+<li><a href="#结束页面">结束页面</a></li>
 </ul>
 <a id="more"></a>
 <h2 id="Phaser横屏适配"><a href="#Phaser横屏适配" class="headerlink" title="Phaser横屏适配"></a>Phaser横屏适配</h2><p><span id="Phaser横屏适配"></span><br>Phaser横屏适配沿用<a href="https://www.phaser-china.com/tutorial-detail-16.html" target="_blank" rel="noopener">Phaser小站的横屏适配方案</a><br><strong>注意：一般在preload的时候，就设置横屏了</strong></p>
@@ -175,7 +177,28 @@
 <li>areaX和areaY 缩放区域的坐标</li>
 </ul>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rate: 1920 / 178 / 2, </span><br><span class="line">anchorX: 724 + (178 * 724) / (724 + 1018),</span><br><span class="line">anchorY: 494 + (102 * 494) / (494 + 484),</span><br><span class="line">areaX: 724,</span><br><span class="line">areaY: 494</span><br></pre></td></tr></table></figure>
-<p>**这里的游戏逻辑是，把图片从最后一张开始添加（因为后面添加的会叠在上面）。每次添加都需要把图片放大指定的尺寸，使得图片一开始可以跟前面一张图片重合。</p>
+<p>这里需要注意几点：</p>
+<ul>
+<li>这里的游戏逻辑是，把图片从最后一张开始添加（因为后面添加的会叠在上面）。</li>
+<li>每次添加都需要把图片放大指定的尺寸，使得图片一开始可以跟前面一张图片重合。</li>
+<li>放大之后，需要设置一下图片的缩放中心，这个中心需要经过一些计算</li>
+</ul>
+<p><img src="/2018/12/03/phaser画中画游戏/1.jpg" alt=""></p>
+<p>如上图，需要保证x1/y1 = x2/y2，根据这个中心点进行缩放，图片缩放到原始大小的时候，才能正好铺满屏幕</p>
+<h2 id="长按效果"><a href="#长按效果" class="headerlink" title="长按效果"></a>长按效果</h2><p><span id="长按效果"></span><br>有了这些数值之后，可以开始制作长按效果，先创建一个长按按钮，绑定两个方法，一个是按下，一个是释放<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// press btn</span><br><span class="line">this.press = this.game.add.sprite(</span><br><span class="line">  this.game.optionsWidth / 2,</span><br><span class="line">  this.game.optionsHeight * 0.8,</span><br><span class="line">  &apos;press&apos;</span><br><span class="line">)</span><br><span class="line">this.press.scale.set(0.7)</span><br><span class="line">this.press.anchor.set(0.5)</span><br><span class="line"></span><br><span class="line">this.down = false</span><br><span class="line">this.press.inputEnabled = true</span><br><span class="line">this.press.events.onInputDown.add(this.onDown, this)</span><br><span class="line">this.press.events.onInputUp.add(this.onUp, this)</span><br></pre></td></tr></table></figure></p>
+<p>通过一个变量this.down = true，来控制这个长按效果<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">onDown () &#123;</span><br><span class="line">  ...</span><br><span class="line">  this.down = true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在phaser的update中，判断如果this.down为true的话，就开始执行缩放动画，动画逻辑是：</p>
+<ol>
+<li><p>为每一张图片的缩放动画，都设定一个区间，在这个区间内，执行动画，否则，不执行; </p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if (this.p2.width &gt; 0 &amp;&amp; this.p1.width &lt;= this.game.optionsWidth) &#123;</span><br><span class="line">  // 当前图片宽度大于0 （不能让图片无限缩小） </span><br><span class="line">  // 前一个图片的宽度小于当前屏幕宽度（前一个图片的宽度小于当前屏幕宽度的时候，当前图片就已经会出现在画面中，这时候就需要对当前图片进行缩小）</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>核心缩放效果，就是改变当前图片的宽高</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const rate = 0.01</span><br><span class="line">nowPage.width = nowPage.width * (1 - rate)</span><br><span class="line">nowPage.height = nowPage.height * (1 - rate)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>但是除此之外，需要增加一些必要的判断，首先是判断是否为最后一页，如果是最后一页，就不用缩放了，跳到最后的场景<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">if (nextPage === &apos;end&apos; &amp;&amp; nowPage.width &lt;= this.game.optionsWidth * 1.1) &#123;</span><br><span class="line">  nowPage.prevPage.destroy()</span><br><span class="line">  nowPage.tween = this.game.add.tween(nowPage).to(</span><br><span class="line">    &#123;</span><br><span class="line">      alpha: 0</span><br><span class="line">    &#125;,</span><br><span class="line">    500,</span><br><span class="line">    null,</span><br><span class="line">    true,</span><br><span class="line">    0,</span><br><span class="line">    0</span><br><span class="line">  )</span><br><span class="line">  nowPage.tween.onComplete.add(() =&gt; &#123;</span><br><span class="line">    this.game.state.start(&apos;end&apos;)</span><br><span class="line">  &#125;, this)</span><br><span class="line">&#125; else if (nextPage !== &apos;end&apos;) &#123;</span><br><span class="line">  nextPage.prevPage = nowPage</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后，当当前图片宽度已经小于屏幕大小，后面一张图片已经在缩放的时候，需要先把上一个图片销毁掉；因为这个时候，上一个图片已经很小，没必要再去缩放</p>
+<p>并且，把当前图片的坐标和缩放中心调整为跟后面一张图片相匹配：这样做目的是因为一开始创建图片的时候，由于图片被放大，所以清晰度不高，如果直接出现在页面上，用户体验不好。所以需要保留之前的一张图片，跟当前的图片一起缩放，这样清晰度就能够保证<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">if (</span><br><span class="line">  nowPage.width &lt;= this.game.optionsWidth &amp;&amp;</span><br><span class="line">  nextPage.visible === false &amp;&amp;</span><br><span class="line">  nextPage !== &apos;end&apos;</span><br><span class="line">) &#123;</span><br><span class="line">  // this.currentPage = nextPage</span><br><span class="line">  if (nowPage.prevPage) &#123;</span><br><span class="line">    nowPage.prevPage.destroy()</span><br><span class="line">  &#125;</span><br><span class="line">  nowPage.position.set(</span><br><span class="line">    nextPage.anchor.x * this.game.optionsWidth,</span><br><span class="line">    nextPage.anchor.y * this.game.optionsHeight</span><br><span class="line">  )</span><br><span class="line">  nowPage.anchor.set(nextPage.anchor.x, nextPage.anchor.y)</span><br><span class="line">  nextPage.visible = true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
         </div>
         
@@ -209,29 +232,6 @@
 </div>
 
 
-
-<div class="card">
-    <div class="card-content">
-        <h3 class="title is-5 has-text-weight-normal">Comentarios</h3>
-        
-<div id="comment-container"></div>
-<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-	var gitment = new Gitment({
-		id: '2018/12/03/phaser画中画游戏/',
-		owner: 'SeasonCCC',
-		repo: 'seasonccc.github.io',
-		oauth: {
-			client_id: '579d202769ad39c06bd7',
-			client_secret: 'f4b37902ec5f3531a6b03ba527cfa05849cb8fd2',
-		},
-	})
-	gitment.render('comment-container')
-</script>
-
-    </div>
-</div>
 </div>
                 
 
@@ -266,7 +266,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Entradas
+                        Posts
                     </p>
                     <p class="title has-text-weight-normal">
                         4
@@ -276,7 +276,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Categorias
+                        Categories
                     </p>
                     <p class="title has-text-weight-normal">
                         0
@@ -286,7 +286,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Etiquetas
+                        Tags
                     </p>
                     <p class="title has-text-weight-normal">
                         2
@@ -296,7 +296,7 @@
         </nav>
         <div class="level">
             <a class="level-item button is-link is-rounded" href="http://github.com/seasonccc">
-                SEGUIR</a>
+                Follow</a>
         </div>
         
         
@@ -365,7 +365,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Categorias
+                Categories
             </h3>
             <ul class="menu-list">
             
@@ -378,7 +378,7 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Nube de etiquetas
+            Tag Cloud
         </h3>
         <a href="/tags/Canvas/" style="font-size: 20px;">Canvas</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a>
     </div>
@@ -392,7 +392,7 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Recientes
+            Recent
         </h3>
         
         <article class="media">
@@ -479,7 +479,7 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Archivos
+            Archives
         </h3>
         <ul class="menu-list">
         
@@ -514,7 +514,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Etiquetas
+                Tags
             </h3>
             <ul class="menu-list">
                 
@@ -560,7 +560,7 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Recientes
+            Recent
         </h3>
         
         <article class="media">
@@ -647,7 +647,7 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Archivos
+            Archives
         </h3>
         <ul class="menu-list">
         
@@ -682,7 +682,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Etiquetas
+                Tags
             </h3>
             <ul class="menu-list">
                 
@@ -832,10 +832,10 @@ document.addEventListener('DOMContentLoaded', function () {
     (function (window) {
         var INSIGHT_CONFIG = {
             TRANSLATION: {
-                POSTS: 'Entradas',
+                POSTS: 'Posts',
                 PAGES: 'Pages',
-                CATEGORIES: 'Categorias',
-                TAGS: 'Etiquetas',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
                 UNTITLED: '(Untitled)',
             },
             CONTENT_URL: '/content.json',
