@@ -1,8 +1,9 @@
 ---
-layout: mockjs
 title: Mockjs + Vue 拦截 AJAX，模拟请求数据
 date: 2018-11-30 17:29:22
 tags: Vue
+categories:
+- Vue
 ---
 
 日常工作中，前端通过ajax调用后端的接口是非常常见的事情。然而很多情况下，调用接口也会出现很多不方便或者麻烦的情况。

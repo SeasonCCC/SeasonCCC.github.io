@@ -2,6 +2,8 @@
 title: Phaser画中画游戏
 date: 2018-12-03 15:27:43
 tags: Canvas
+categories:
+- Phaser
 ---
 
 这篇文章主要记录，Phaser画中画游戏的制作流程以及制作难点，主要涉及以下几点：[项目效果](http://www.foshannews.net/zt/2018/wx/fsfb6/#/)

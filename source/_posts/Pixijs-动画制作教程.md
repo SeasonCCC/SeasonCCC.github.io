@@ -2,6 +2,8 @@
 title: Pixijs 动画制作教程
 date: 2019-01-02 11:45:00
 tags: Canvas
+categories:
+- Pixijs
 ---
 
 Pixijs 是一个 HTML5 的 2D 渲染引擎，支持 Canvas 和 Webgl 两种方式渲染。使用 Pixijs 可以制作几乎所有的 2D 动画效果，甚至一些简单的小游戏都可以实现。目前 Github 上，已经有超过 2W 星，是最流行的 2D 渲染引擎之一。
