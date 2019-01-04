@@ -62,10 +62,25 @@ document.body.appendChild(app.view);
 <span id="Pixijs动画元素渲染"></span>
 Pixijs既然是一个渲染引擎，那么它在渲染方面肯定是有独特之处，那究竟Pixijs是如何做渲染的呢
 
-首先，Pixijs支持Canvas和Webgl两种方式渲染
-* Canvas方式相信我们都不陌生，是Html5的一个新增的一个画布绘图的功能。
-* Webgl其实是Opengl在网页浏览器中的运用，专门针对三维视图所出现最新Api。
+### **首先，Pixijs支持Canvas和Webgl两种方式渲染**
+
+> * Canvas方式相信我们都不陌生，是Html5的一个新增的一个画布绘图的功能。
+> * Webgl其实是Opengl在网页浏览器中的应用，专门针对三维视图所出现最新Api。
 
 在Pixijs中，无论是使用Canvas还是Webgl方式，所写的代码都是一样的，只是需要通过PIXI.Application中的forceCanvas来设置是否强制使用Canvas方式即可。
+
+### **预加载元素**
+因为动画和游戏的资源都很多，所以任何一个动画或者游戏框架，都必须有预加载的功能。Pixijs有一个十分强大的加载器：PIXI.loaders。通过loader可以把图片资源预加载到项目中，然后通过onProgress和onComplete方法，就能监听到图片加载情况。
+
+```
+this.loader = new PIXI.loaders.Loader()
+this.loader.add('stage1', stage1)
+this.loader.load()
+this.loader.onProgress.add(progressHandel)
+this.loader.onComplete.add(handleComplete)
+```
+利用loader能够制作项目加载进度的动画
+
+### **Pixijs通过Sprite、Graphics、TilingSprite等的api，生成场景中的元素**
 
 
