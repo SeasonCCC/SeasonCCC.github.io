@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Season Blog">
 <meta property="og:description" content="Pixijs 是一个 HTML5 的 2D 渲染引擎，支持 Canvas 和 Webgl 两种方式渲染。使用 Pixijs 可以制作几乎所有的 2D 动画效果，甚至一些简单的小游戏都可以实现。目前 Github 上，已经有超过 2W 星，是最流行的 2D 渲染引擎之一。 Pixijs 采用代码开发的形式，虽然开发过程较 Egret 和 Coco2d 复杂，但是该开发过程十分灵活，并且能够与其他业务">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-02T07:33:51.451Z">
+<meta property="og:updated_time" content="2019-01-04T08:20:14.638Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Pixijs 动画制作教程">
 <meta name="twitter:description" content="Pixijs 是一个 HTML5 的 2D 渲染引擎，支持 Canvas 和 Webgl 两种方式渲染。使用 Pixijs 可以制作几乎所有的 2D 动画效果，甚至一些简单的小游戏都可以实现。目前 Github 上，已经有超过 2W 星，是最流行的 2D 渲染引擎之一。 Pixijs 采用代码开发的形式，虽然开发过程较 Egret 和 Coco2d 复杂，但是该开发过程十分灵活，并且能够与其他业务">
@@ -135,11 +135,15 @@
             <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2019-01-02T03:45:00.000Z">2019-01-02</time>
                 
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/Pixijs/">Pixijs</a>
+                </div>
+                
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    5 minutes read (About 787 words)
+                    6 minutes read (About 948 words)
                 </span>
                 
             </div>
@@ -174,13 +178,17 @@
 <p>当然，PIXI.Application方法还有很多配置，这个可以到文档中查看详细的介绍：<a href="http://pixijs.download/release/docs/index.html" target="_blank" rel="noopener">PIXI文档</a></p>
 <hr>
 <h2 id="Pixijs动画元素渲染"><a href="#Pixijs动画元素渲染" class="headerlink" title="Pixijs动画元素渲染"></a>Pixijs动画元素渲染</h2><p><span id="Pixijs动画元素渲染"></span><br>Pixijs既然是一个渲染引擎，那么它在渲染方面肯定是有独特之处，那究竟Pixijs是如何做渲染的呢</p>
-<p>首先，Pixijs支持Canvas和Webgl两种方式渲染</p>
+<h3 id="首先，Pixijs支持Canvas和Webgl两种方式渲染"><a href="#首先，Pixijs支持Canvas和Webgl两种方式渲染" class="headerlink" title="首先，Pixijs支持Canvas和Webgl两种方式渲染"></a><strong>首先，Pixijs支持Canvas和Webgl两种方式渲染</strong></h3><blockquote>
 <ul>
 <li>Canvas方式相信我们都不陌生，是Html5的一个新增的一个画布绘图的功能。</li>
-<li>Webgl其实是Opengl在网页浏览器中的运用，专门针对三维视图所出现最新Api。</li>
+<li>Webgl其实是Opengl在网页浏览器中的应用，专门针对三维视图所出现最新Api。</li>
 </ul>
+</blockquote>
 <p>在Pixijs中，无论是使用Canvas还是Webgl方式，所写的代码都是一样的，只是需要通过PIXI.Application中的forceCanvas来设置是否强制使用Canvas方式即可。</p>
-
+<h3 id="预加载元素"><a href="#预加载元素" class="headerlink" title="预加载元素"></a><strong>预加载元素</strong></h3><p>因为动画和游戏的资源都很多，所以任何一个动画或者游戏框架，都必须有预加载的功能。Pixijs有一个十分强大的加载器：PIXI.loaders。通过loader可以把图片资源预加载到项目中，然后通过onProgress和onComplete方法，就能监听到图片加载情况。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">this.loader = new PIXI.loaders.Loader()</span><br><span class="line">this.loader.add(&apos;stage1&apos;, stage1)</span><br><span class="line">this.loader.load()</span><br><span class="line">this.loader.onProgress.add(progressHandel)</span><br><span class="line">this.loader.onComplete.add(handleComplete)</span><br></pre></td></tr></table></figure>
+<p>利用loader能够制作项目加载进度的动画</p>
+<h3 id="Pixijs通过Sprite、Graphics、TilingSprite等的api，生成场景中的元素"><a href="#Pixijs通过Sprite、Graphics、TilingSprite等的api，生成场景中的元素" class="headerlink" title="Pixijs通过Sprite、Graphics、TilingSprite等的api，生成场景中的元素"></a><strong>Pixijs通过Sprite、Graphics、TilingSprite等的api，生成场景中的元素</strong></h3>
         </div>
         
         <div class="level is-size-7 is-uppercase">
@@ -247,7 +255,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Articles
+                        Entradas
                     </p>
                     <p class="title has-text-weight-normal">
                         5
@@ -257,27 +265,27 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Catégories
+                        Categorias
                     </p>
                     <p class="title has-text-weight-normal">
-                        0
+                        5
                     </p>
                 </div>
             </div>
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Tags
+                        Etiquetas
                     </p>
                     <p class="title has-text-weight-normal">
-                        2
+                        3
                     </p>
                 </div>
             </div>
         </nav>
         <div class="level">
             <a class="level-item button is-link is-rounded" href="http://github.com/seasonccc">
-                SUIVRE</a>
+                SEGUIR</a>
         </div>
         
         
@@ -308,7 +316,7 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Liens
+            Links
         </h3>
         <ul class="menu-list">
         
@@ -346,10 +354,50 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Catégories
+                Categorias
             </h3>
             <ul class="menu-list">
-            
+            <li>
+        <a class="level is-marginless" href="/categories/Createjs/">
+            <span class="level-start">
+                <span class="level-item">Createjs</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Other/">
+            <span class="level-start">
+                <span class="level-item">Other</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Phaser/">
+            <span class="level-start">
+                <span class="level-item">Phaser</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Pixijs/">
+            <span class="level-start">
+                <span class="level-item">Pixijs</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Vue/">
+            <span class="level-start">
+                <span class="level-item">Vue</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
             </ul>
         </div>
     </div>
@@ -359,9 +407,9 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Nuage de tags
+            Nube de etiquetas
         </h3>
-        <a href="/tags/Canvas/" style="font-size: 20px;">Canvas</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a>
+        <a href="/tags/Canvas/" style="font-size: 20px;">Canvas</a> <a href="/tags/Other/" style="font-size: 10px;">Other</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a>
     </div>
 </div>
 
@@ -373,7 +421,7 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Récents
+            Recientes
         </h3>
         
         <article class="media">
@@ -389,7 +437,7 @@
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-02T03:45:00.000Z">2019-01-02</time></div>
                     <a href="/2019/01/02/Pixijs-动画制作教程/" class="has-link-black-ter is-size-6">Pixijs 动画制作教程</a>
                     <p class="is-size-7 is-uppercase">
-                        
+                        <a class="has-link-grey -link" href="/categories/Pixijs/">Pixijs</a>
                     </p>
                 </div>
             </div>
@@ -408,7 +456,7 @@
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-03T07:27:43.000Z">2018-12-03</time></div>
                     <a href="/2018/12/03/phaser画中画游戏/" class="has-link-black-ter is-size-6">Phaser画中画游戏</a>
                     <p class="is-size-7 is-uppercase">
-                        
+                        <a class="has-link-grey -link" href="/categories/Phaser/">Phaser</a>
                     </p>
                 </div>
             </div>
@@ -427,7 +475,7 @@
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-30T09:29:22.000Z">2018-11-30</time></div>
                     <a href="/2018/11/30/AJAX，模拟请求数据/" class="has-link-black-ter is-size-6">Mockjs + Vue 拦截 AJAX，模拟请求数据</a>
                     <p class="is-size-7 is-uppercase">
-                        
+                        <a class="has-link-grey -link" href="/categories/Vue/">Vue</a>
                     </p>
                 </div>
             </div>
@@ -446,7 +494,7 @@
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-30T09:27:43.000Z">2018-11-30</time></div>
                     <a href="/2018/11/30/CreateJS 制作 H5 长图动画/" class="has-link-black-ter is-size-6">CreateJS 制作 H5 长图动画</a>
                     <p class="is-size-7 is-uppercase">
-                        
+                        <a class="has-link-grey -link" href="/categories/Createjs/">Createjs</a>
                     </p>
                 </div>
             </div>
@@ -454,7 +502,7 @@
         
         <article class="media">
             
-            <a href="/2018/11/30/前端游戏框架哪个好/" class="media-left">
+            <a href="/2018/11/03/前端游戏框架哪个好/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="前端游戏框架哪个好">
                 </p>
@@ -462,10 +510,10 @@
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-30T08:46:27.836Z">2018-11-30</time></div>
-                    <a href="/2018/11/30/前端游戏框架哪个好/" class="has-link-black-ter is-size-6">前端游戏框架哪个好</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-03T07:27:43.000Z">2018-11-03</time></div>
+                    <a href="/2018/11/03/前端游戏框架哪个好/" class="has-link-black-ter is-size-6">前端游戏框架哪个好</a>
                     <p class="is-size-7 is-uppercase">
-                        
+                        <a class="has-link-grey -link" href="/categories/Other/">Other</a>
                     </p>
                 </div>
             </div>
@@ -479,7 +527,7 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Archives
+            Archivos
         </h3>
         <ul class="menu-list">
         
@@ -525,7 +573,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Tags
+                Etiquetas
             </h3>
             <ul class="menu-list">
                 
@@ -536,6 +584,17 @@
                         </span>
                         <span class="level-end">
                             <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Other/">
+                        <span class="level-start">
+                            <span class="level-item">Other</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
                         </span>
                     </a>
                 </li>
@@ -571,7 +630,7 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            Récents
+            Recientes
         </h3>
         
         <article class="media">
@@ -587,7 +646,7 @@
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-02T03:45:00.000Z">2019-01-02</time></div>
                     <a href="/2019/01/02/Pixijs-动画制作教程/" class="has-link-black-ter is-size-6">Pixijs 动画制作教程</a>
                     <p class="is-size-7 is-uppercase">
-                        
+                        <a class="has-link-grey -link" href="/categories/Pixijs/">Pixijs</a>
                     </p>
                 </div>
             </div>
@@ -606,7 +665,7 @@
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-03T07:27:43.000Z">2018-12-03</time></div>
                     <a href="/2018/12/03/phaser画中画游戏/" class="has-link-black-ter is-size-6">Phaser画中画游戏</a>
                     <p class="is-size-7 is-uppercase">
-                        
+                        <a class="has-link-grey -link" href="/categories/Phaser/">Phaser</a>
                     </p>
                 </div>
             </div>
@@ -625,7 +684,7 @@
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-30T09:29:22.000Z">2018-11-30</time></div>
                     <a href="/2018/11/30/AJAX，模拟请求数据/" class="has-link-black-ter is-size-6">Mockjs + Vue 拦截 AJAX，模拟请求数据</a>
                     <p class="is-size-7 is-uppercase">
-                        
+                        <a class="has-link-grey -link" href="/categories/Vue/">Vue</a>
                     </p>
                 </div>
             </div>
@@ -644,7 +703,7 @@
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-30T09:27:43.000Z">2018-11-30</time></div>
                     <a href="/2018/11/30/CreateJS 制作 H5 长图动画/" class="has-link-black-ter is-size-6">CreateJS 制作 H5 长图动画</a>
                     <p class="is-size-7 is-uppercase">
-                        
+                        <a class="has-link-grey -link" href="/categories/Createjs/">Createjs</a>
                     </p>
                 </div>
             </div>
@@ -652,7 +711,7 @@
         
         <article class="media">
             
-            <a href="/2018/11/30/前端游戏框架哪个好/" class="media-left">
+            <a href="/2018/11/03/前端游戏框架哪个好/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="前端游戏框架哪个好">
                 </p>
@@ -660,10 +719,10 @@
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-30T08:46:27.836Z">2018-11-30</time></div>
-                    <a href="/2018/11/30/前端游戏框架哪个好/" class="has-link-black-ter is-size-6">前端游戏框架哪个好</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-03T07:27:43.000Z">2018-11-03</time></div>
+                    <a href="/2018/11/03/前端游戏框架哪个好/" class="has-link-black-ter is-size-6">前端游戏框架哪个好</a>
                     <p class="is-size-7 is-uppercase">
-                        
+                        <a class="has-link-grey -link" href="/categories/Other/">Other</a>
                     </p>
                 </div>
             </div>
@@ -677,7 +736,7 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            Archives
+            Archivos
         </h3>
         <ul class="menu-list">
         
@@ -723,7 +782,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                Tags
+                Etiquetas
             </h3>
             <ul class="menu-list">
                 
@@ -734,6 +793,17 @@
                         </span>
                         <span class="level-end">
                             <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Other/">
+                        <span class="level-start">
+                            <span class="level-item">Other</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
                         </span>
                     </a>
                 </li>
@@ -873,10 +943,10 @@ document.addEventListener('DOMContentLoaded', function () {
     (function (window) {
         var INSIGHT_CONFIG = {
             TRANSLATION: {
-                POSTS: 'Articles',
+                POSTS: 'Entradas',
                 PAGES: 'Pages',
-                CATEGORIES: 'Catégories',
-                TAGS: 'Tags',
+                CATEGORIES: 'Categorias',
+                TAGS: 'Etiquetas',
                 UNTITLED: '(Untitled)',
             },
             CONTENT_URL: '/content.json',
